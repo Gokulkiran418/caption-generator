@@ -1,0 +1,31 @@
+# Next.js
+.next/
+out/
+node_modules/
+.env*
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# AWS
+*.pem
+aws-setup-notes.md
+
+# Python
+__pycache__/
+*.py[cod]
+*.log
+*.egg-info/
+dist/
+build/
+
+# Misc
+.DS_Store
+*.log
+*.swp
+*.swo
+#custom
+aws.txt
+test.mp4
+test5.mp4
