@@ -108,7 +108,7 @@ export default function Home() {
               ref={videoRef}
               src={videoPreview}
               controls
-              className="w-full max-w-xs mx-auto rounded-lg mb-4 shadow-md" // Changed max-w-md to max-w-xs
+              className="w-full max-w-xs max-h-40 mx-auto rounded-lg mb-4 shadow-md" // Added max-h-40
             />
           )}
           {uploading && (
