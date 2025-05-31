@@ -92,70 +92,72 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col items-center p-6">
-      <h1 className="text-4xl font-bold mb-6 text-blue-800">Video Captioning App</h1>
-      <div className="w-full max-w-md bg-white rounded-lg shadow-md p-6">
-        <input
-          type="file"
-          accept="video/mp4"
-          onChange={handleFileChange}
-          disabled={uploading || polling}
-          className="mb-4 w-full text-gray-700 border rounded-lg p-2"
-        />
-        {videoPreview && (
-          <video
-            ref={videoRef}
-            src={videoPreview}
-            controls
-            className="mb-4 w-full max-w-xs mx-auto rounded-lg"
+    <div className="min-h-screen bg-dark-bg flex flex-col items-center justify-center p-4 sm:p-6">
+      <div className="w-full max-w-2xl">
+        <h1 className="text-4xl font-bold text-dark-text mb-8 text-center">Video Captioning</h1>
+        <div className="bg-dark-card rounded-xl shadow-lg p-6 mb-6 transition-all duration-300 hover:shadow-2xl">
+          <input
+            type="file"
+            accept="video/mp4"
+            onChange={handleFileChange}
+            disabled={uploading || polling}
+            className="w-full text-dark-muted bg-dark-bg border border-dark-muted rounded-lg p-2 mb-4 focus:outline-none focus:border-dark-accent file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-dark-accent file:text-dark-text file:cursor-pointer"
           />
-        )}
-        {uploading && (
-          <div className="mb-4">
-            <div className="w-full bg-gray-200 rounded-full h-2.5">
-              <div
-                className="bg-blue-600 h-2.5 rounded-full"
-                style={{ width: `${progress}%` }}
-              ></div>
+          {videoPreview && (
+            <video
+              ref={videoRef}
+              src={videoPreview}
+              controls
+              className="w-full max-w-xs mx-auto rounded-lg mb-4 shadow-md" // Changed max-w-md to max-w-xs
+            />
+          )}
+          {uploading && (
+            <div className="mb-4">
+              <div className="w-full bg-dark-muted rounded-full h-2.5">
+                <div
+                  className="bg-dark-accent h-2.5 rounded-full transition-all duration-300"
+                  style={{ width: `${progress}%` }}
+                ></div>
+              </div>
+              <p className="text-sm text-dark-muted mt-2 text-center">Upload Progress: {progress}%</p>
             </div>
-            <p className="text-sm text-gray-600 mt-1">Upload progress: {progress}%</p>
-          </div>
-        )}
-        <button
-          onClick={handleUpload}
-          disabled={uploading || polling || !file}
-          className={`w-full py-2 px-4 rounded-lg text-white font-semibold ${
-            uploading || polling
-              ? 'bg-gray-400 cursor-not-allowed'
-              : 'bg-blue-600 hover:bg-blue-700'
-          }`}
-        >
-          {uploading ? 'Uploading...' : polling ? 'Processing...' : 'Upload Video'}
-        </button>
-        {message && (
-          <p
-            className={`mt-4 text-center ${
-              message.includes('Error') ? 'text-red-600' : 'text-green-600'
+          )}
+          <button
+            onClick={handleUpload}
+            disabled={uploading || polling || !file}
+            className={`w-full py-3 px-4 rounded-lg font-semibold text-dark-text transition-all duration-300 ${
+              uploading || polling
+                ? 'bg-dark-muted cursor-not-allowed'
+                : 'bg-dark-accent hover:bg-blue-600'
             }`}
           >
-            {message}
-          </p>
+            {uploading ? 'Uploading...' : polling ? 'Processing...' : 'Upload Video'}
+          </button>
+          {message && (
+            <p
+              className={`mt-4 text-center text-sm ${
+                message.includes('Error') ? 'text-red-400' : 'text-green-400'
+              }`}
+            >
+              {message}
+            </p>
+          )}
+        </div>
+        {transcription && (
+          <div className="bg-dark-card rounded-xl shadow-lg p-6 transition-all duration-300 hover:shadow-2xl">
+            <h2 className="text-2xl font-semibold text-dark-text mb-4">Transcription</h2>
+            <pre className="bg-dark-bg text-dark-muted p-4 rounded-lg whitespace-pre-wrap break-words max-h-96 overflow-y-auto">
+              {transcription}
+            </pre>
+            <button
+              onClick={handleDownload}
+              className="mt-4 w-full py-3 px-4 bg-green-600 hover:bg-green-700 text-dark-text rounded-lg font-semibold transition-all duration-300"
+            >
+              Download Transcription
+            </button>
+          </div>
         )}
       </div>
-      {transcription && (
-        <div className="w-full max-w-md mt-6 bg-white rounded-lg shadow-md p-6">
-          <h2 className="text-2xl font-semibold mb-4 text-gray-800">Transcription</h2>
-          <pre className="bg-gray-50 p-4 rounded-lg text-gray-700 whitespace-pre-wrap break-words">
-            {transcription}
-          </pre>
-          <button
-            onClick={handleDownload}
-            className="mt-4 w-full py-2 px-4 bg-green-600 hover:bg-green-700 text-white rounded-lg font-semibold"
-          >
-            Download Transcription
-          </button>
-        </div>
-      )}
     </div>
   );
 }
