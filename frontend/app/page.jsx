@@ -34,7 +34,7 @@ export default function Home() {
     setUploading(true);
     setMessage('Uploading video...');
     try {
-      const response = await axios.get('<invoke-url>/presigned-url');
+      const response = await axios.get('<presigned_url>');
       const { presigned_url, video_key, txt_url } = response.data;
       await axios.put(presigned_url, file, {
         headers: { 'Content-Type': 'video/mp4' },
